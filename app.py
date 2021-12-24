@@ -4,6 +4,7 @@ from services.database import db
 from flask_migrate import Migrate
 from services.marshmallow import ma
 from views.author import bp_authors
+from views.news import bp_news
 
 def create_app():
     app = Flask(__name__)
@@ -16,6 +17,7 @@ def create_app():
     migrate = Migrate(app, db)
 
     app.register_blueprint(bp_authors)
+    app.register_blueprint(bp_news)
 
     return app
 
