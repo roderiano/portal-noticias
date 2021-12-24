@@ -7,6 +7,7 @@ from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import literal
 from models.author import Author
+from jinja2 import Template
 
 bp_news = Blueprint('news', __name__, url_prefix='/news')
 
@@ -46,6 +47,31 @@ def get(news_id: int):
         news = news.first()
         if news:
             response = NewsSchema().dumps(news), 200
+        else:
+            response = {'status': 'News {} doesn\'t exist'.format(news_id)}, 404
+    except ValidationError as err:
+        response = err.messages, 400
+
+    return response
+
+@bp_news.route('/<int:news_id>/preview/', methods=['GET'])
+def preview(news_id: int):
+    """
+    Abre visualização da noticia
+
+    Args:
+        news_id (int): Identificador da noticia
+    """    
+    try:
+        news = News.query.filter_by(id=news_id)
+        news = news.first()
+        if news:
+            response = NewsSchema().dumps(news), 200
+            
+            with open('./static/preview.html') as file_:
+                template = Template(file_.read())
+            
+            return template.render(title=news.title, content=news.content,  author=news.author.name)
         else:
             response = {'status': 'News {} doesn\'t exist'.format(news_id)}, 404
     except ValidationError as err:
