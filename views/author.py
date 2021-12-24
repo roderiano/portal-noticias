@@ -63,7 +63,7 @@ def create():
 @bp_authors.route('/<int:author_id>/', methods=['PUT'])
 def update(author_id: int):
     """
-    Valida JSON da requisição e atualiza novo autor
+    Valida JSON da requisição e atualiza autor
 
     Args:
         author_id (int): Identificador do autor
