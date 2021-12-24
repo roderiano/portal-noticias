@@ -5,6 +5,8 @@ from schemas.news import NewsSchema
 from services.database import db
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import literal
+from models.author import Author
 
 bp_news = Blueprint('news', __name__, url_prefix='/news')
 
@@ -15,7 +17,16 @@ def list():
     Lista todas noticias cadastradas
     """    
     try:
-        news = News.query.all()
+        filter = request.args.get('filter')
+        if filter:
+            news = News.query.filter(News.title.contains(literal(filter))) # filter title
+            news_ = News.query.filter(News.content.contains(literal(filter))) # filter content
+            news__ = News.query.filter(News.author.has(Author.name.contains(literal(filter)))) # filter author name
+            news = news.union(news_)
+            news = news.union(news__)
+        else:
+            news = News.query.all()
+
         response = NewsSchema(many=True).dumps(news), 200
     except ValidationError as err:
         response = err.messages, 400
