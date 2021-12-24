@@ -1,7 +1,9 @@
 from flask import Flask
+from werkzeug.datastructures import is_immutable
 from services.database import db
 from flask_migrate import Migrate
 from services.marshmallow import ma
+from views.author import bp_authors
 
 def create_app():
     app = Flask(__name__)
@@ -13,7 +15,9 @@ def create_app():
     ma.init_app(app)
     migrate = Migrate(app, db)
 
-    app.run()
+    app.register_blueprint(bp_authors)
+
+    return app
 
 if __name__ == '__main__':
-    create_app()
+    app = create_app()
