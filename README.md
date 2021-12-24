@@ -67,11 +67,11 @@ O objeto **News** é representado da seguinte forma para manipulação.
 
 ```json
 {
-    "id": 1,
+	"id": 1,
 	"title": "Lorem Ipsum",
 	"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quam leo, lacinia non sodales ut, porttitor sed sapien. Maecenas sit amet ex imperdiet eros pulvinar hendrerit. Nunc at urna rutrum, sodales eros at, sagittis risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Ut sed laoreet libero. Vestibulum vitae ultricies turpis, ut malesuada lorem. Fusce mattis vel mauris sed elementum. Nulla porttitor posuere tortor, a euismod felis varius non. Cras a dignissim erat. Mauris dignissim neque ut imperdiet maximus. Maecenas mollis tortor nec ipsum consectetur scelerisque. Maecenas sed felis vitae lectus mattis blandit. In ac hendrerit enim, non sagittis augue. Donec id efficitur sem. Quisque tincidunt tortor eu massa lobortis eleifend.",
-    "author": {
-        "id": 1,
+    	"author": {
+        	"id": 1,
 		"name": "Luciana Potter",
 		"description": "foo bar"
 	}
